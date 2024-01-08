@@ -19,13 +19,13 @@ jobs:
   lint:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v4
         with:
           cache: 'npm'
-          node-version: '14'
+          node-version: '18'
       - name: Install dependencies
         run: npm ci
       - name: Lint
@@ -34,18 +34,18 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v4
         with:
           cache: 'npm'
-          node-version: '14'
+          node-version: '18'
       - name: Install dependencies
         run: npm ci
       - name: Build
         run: npm run build
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
           name: dist
           path: dist
@@ -54,16 +54,16 @@ jobs:
     needs: [lint, build]
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v4
         with:
           cache: 'npm'
-          node-version: '14'
+          node-version: '18'
       - name: Install dependencies
         run: npm ci
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v4
         with:
           name: dist
           path: dist
@@ -74,21 +74,21 @@ jobs:
     needs: [lint, build]
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v4
         with:
           cache: 'npm'
-          node-version: '14'
+          node-version: '18'
       - name: Install dependencies
         run: npm ci
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v4
         with:
           name: dist
           path: dist
       - name: E2E tests
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v6
         with:
           command: npm run test:e2e
           start: npm run start-test
